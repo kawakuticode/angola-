@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Angola+</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="nav_text">Welcome to Angola </string>
+    <string name="nav_intro_text"> Android application that will let you know more about this beatifull country</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_history_fragment">Hello History fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_tourism_fragment">Hello Tourism fragment</string>
+    <string name="hello_radio_fragment">Hello Radio fragment</string>
+    <string name="hello_gastronomy_fragment">Hello Gastronomy fragment</string>
+    <string name="hello_restaurant_fragment">Hello Restaurant fragment</string>
+
+
+</resources>
