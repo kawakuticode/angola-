@@ -1,12 +1,36 @@
 package com.angolamais.kawakuticode.angola;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.angolamais.kawakuticode.adapters.TourismAdapter;
+import com.angolamais.kawakuticode.models.TourismModel;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,11 +47,19 @@ public class Tourism_Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String TOURISM_URL_API = "https://angolamaiswebservice.herokuapp.com/tourism";
+    private static final String TOURISM_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/tourism";
+    private RecyclerView recyclerView;
+    private LinearLayoutManager gridLayoutManager;
+    private TourismAdapter t_adapter;
+    private List<TourismModel> tourism_data ;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ProgressDialog pd;
 
     public Tourism_Fragment() {
         // Required empty public constructor
@@ -54,6 +86,13 @@ public class Tourism_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle("Tourism Atractions In Angola");
+        pd = new ProgressDialog(getContext());
+        pd.setProgressStyle(0);
+        pd.setTitle("Loading....... ");
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -63,8 +102,24 @@ public class Tourism_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.tourism_card, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.cardView_tourism);
+        recyclerView.setHasFixedSize(true);
+        gridLayoutManager = new LinearLayoutManager(getContext());
+        gridLayoutManager.setOrientation(gridLayoutManager.VERTICAL);
+        tourism_data = new ArrayList<>();
+
+        (new Load_tourism_data_from_webservice()).execute();
+        t_adapter = new TourismAdapter(tourism_data);
+        new Load_tourism_data_from_webservice().execute();
+        recyclerView.setAdapter(t_adapter);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        return view;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tourism_, container, false);
+        //    return inflater.inflate(R.layout.fragment_tourism_, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,4 +160,87 @@ public class Tourism_Fragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    private class Load_tourism_data_from_webservice extends AsyncTask<String, Void, List<TourismModel>> {
+
+
+        @Override
+        protected List<TourismModel> doInBackground(String... params) {
+            OkHttpClient client = new OkHttpClient();
+
+            //  Request request = new Request.Builder().url(TOURISM_URL_API).build();
+
+            Request request = new Request.Builder().url(TOURISM_URL_API_LOCAL).build();
+            try {
+                Response response = client.newCall(request).execute();
+                JSONArray array_json = new JSONArray(response.body().string());
+
+                tourism_data.addAll(load_tourism_data_on_array(array_json));
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return tourism_data;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setCancelable(false);
+            pd.show();
+        }
+
+        @Override
+        protected void onPostExecute(List<TourismModel> tourism_data_result) {
+            super.onPostExecute(tourism_data_result);
+            if (tourism_data_result.size() != 0) {
+                t_adapter.notifyDataSetChanged();
+                pd.dismiss();
+            } else if (tourism_data_result.size() == 0) {
+                pd.dismiss();
+                Toast.makeText(getContext(), "No Tour places found " + tourism_data_result.size() + "", Toast.LENGTH_LONG).show();
+            }
+            pd.dismiss();
+        }
+
+    }
+
+    private ArrayList<TourismModel> load_tourism_data_on_array(JSONArray json_array) {
+
+        ArrayList<TourismModel> tmp_list = new ArrayList<TourismModel>();
+
+        for (int i = 0; i < json_array.length(); i++) {
+
+            TourismModel tour_tmp = new TourismModel();
+            try {
+                JSONObject obj = json_array.getJSONObject(i);
+                tour_tmp.setAtraction_name(obj.getString("atraction_name"));
+                tour_tmp.setCity(obj.getString("city"));
+                tour_tmp.setInfo(obj.getString("info"));
+                tour_tmp.setLocation(obj.getString("location"));
+                URL url1 = new URL(obj.getString("img_url"));
+
+                Bitmap bmp = BitmapFactory.decodeStream(url1.openConnection().getInputStream());
+                tour_tmp.setTour_thumbnail(bmp);
+
+                tmp_list.add(tour_tmp);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return tmp_list;
+    }
 }
+

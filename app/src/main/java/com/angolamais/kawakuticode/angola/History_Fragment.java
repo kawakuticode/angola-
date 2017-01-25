@@ -1,5 +1,6 @@
 package com.angolamais.kawakuticode.angola;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class History_Fragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ProgressDialog pd;
 
     public History_Fragment() {
         // Required empty public constructor
@@ -53,6 +55,12 @@ public class History_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle("History of Angola");
+
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
