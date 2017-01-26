@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
 public class RadioModel {
 
     private String radio_name, intro_message , radio_url ;
-    private Bitmap tour_thumbnail;
+    private Bitmap radio_thumbnail;
 
     public RadioModel() {
     }
@@ -39,12 +39,12 @@ public class RadioModel {
         this.radio_url = radio_url;
     }
 
-    public Bitmap getTour_thumbnail() {
-        return tour_thumbnail;
+    public Bitmap getRadio_thumbnail() {
+        return radio_thumbnail;
     }
 
-    public void setTour_thumbnail(Bitmap tour_thumbnail) {
-        this.tour_thumbnail = tour_thumbnail;
+    public void setRadio_thumbnail(Bitmap radio_thumbnail) {
+        this.radio_thumbnail = radio_thumbnail;
     }
 
 
@@ -54,7 +54,7 @@ public class RadioModel {
                 "radio_name='" + radio_name + '\'' +
                 ", intro_message='" + intro_message + '\'' +
                 ", radio_url='" + radio_url + '\'' +
-                ", tour_thumbnail=" + tour_thumbnail +
+                ", radio_thumbnail=" + radio_thumbnail +
                 '}';
     }
 }

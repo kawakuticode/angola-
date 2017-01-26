@@ -32,6 +32,8 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp
     compile 'com.squareup.okhttp:okhttp:2.7.5'
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+
 
 
     testCompile 'junit:junit:4.12'

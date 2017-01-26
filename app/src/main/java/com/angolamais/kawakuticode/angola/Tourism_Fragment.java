@@ -54,12 +54,13 @@ public class Tourism_Fragment extends Fragment {
     private TourismAdapter t_adapter;
     private List<TourismModel> tourism_data ;
 
+    private ProgressDialog pd;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private ProgressDialog pd;
 
     public Tourism_Fragment() {
         // Required empty public constructor
@@ -112,14 +113,13 @@ public class Tourism_Fragment extends Fragment {
 
         (new Load_tourism_data_from_webservice()).execute();
         t_adapter = new TourismAdapter(tourism_data);
-        new Load_tourism_data_from_webservice().execute();
+
         recyclerView.setAdapter(t_adapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         return view;
 
-        // Inflate the layout for this fragment
-        //    return inflater.inflate(R.layout.fragment_tourism_, container, false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -159,6 +159,38 @@ public class Tourism_Fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private ArrayList<TourismModel> load_tourism_data_on_array(JSONArray json_array) {
+
+        ArrayList<TourismModel> tmp_list = new ArrayList<TourismModel>();
+
+        for (int i = 0; i < json_array.length(); i++) {
+
+            TourismModel tour_tmp = new TourismModel();
+            try {
+                JSONObject obj = json_array.getJSONObject(i);
+                tour_tmp.setAtraction_name(obj.getString("atraction_name"));
+                tour_tmp.setCity(obj.getString("city"));
+                tour_tmp.setInfo(obj.getString("info"));
+                tour_tmp.setLocation(obj.getString("location"));
+                URL url1 = new URL(obj.getString("img_url"));
+
+                Bitmap bmp = BitmapFactory.decodeStream(url1.openConnection().getInputStream());
+                tour_tmp.setTour_thumbnail(bmp);
+
+                tmp_list.add(tour_tmp);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return tmp_list;
     }
 
 
@@ -210,37 +242,6 @@ public class Tourism_Fragment extends Fragment {
 
     }
 
-    private ArrayList<TourismModel> load_tourism_data_on_array(JSONArray json_array) {
 
-        ArrayList<TourismModel> tmp_list = new ArrayList<TourismModel>();
-
-        for (int i = 0; i < json_array.length(); i++) {
-
-            TourismModel tour_tmp = new TourismModel();
-            try {
-                JSONObject obj = json_array.getJSONObject(i);
-                tour_tmp.setAtraction_name(obj.getString("atraction_name"));
-                tour_tmp.setCity(obj.getString("city"));
-                tour_tmp.setInfo(obj.getString("info"));
-                tour_tmp.setLocation(obj.getString("location"));
-                URL url1 = new URL(obj.getString("img_url"));
-
-                Bitmap bmp = BitmapFactory.decodeStream(url1.openConnection().getInputStream());
-                tour_tmp.setTour_thumbnail(bmp);
-
-                tmp_list.add(tour_tmp);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return tmp_list;
-    }
 }
 
