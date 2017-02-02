@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.angolamais.kawakuticode.angola.Listen_Radio_activity"
+    tools:showIn="@layout/activity_listen__radio_activity">
+
+
+    <ImageButton
+        android:id="@+id/play_button"
+        android:layout_width="55dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="146dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:srcCompat="@mipmap/play"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <ImageButton
+        android:id="@+id/stop_button"
+        android:layout_width="55dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="146dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:srcCompat="@mipmap/btn_pause"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/radio_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:text="RADIO LUANDA"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/play_button"
+        tools:layout_constraintLeft_creator="1" />
+
+    <TextView
+        android:id="@+id/text_intro_sint"
+        android:layout_width="143dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+
+        android:ellipsize="marquee"
+        android:ems="10"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="a sintonia da kianda . . ."
+        android:textColor="#ffffff"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/play_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintRight_toLeftOf="@+id/play_button"
+        tools:layout_constraintLeft_creator="1" />
+
+    <TextView
+        android:id="@+id/date_time"
+        android:layout_width="134dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginTop="33dp"
+        android:ems="10"
+        android:inputType="date"
+
+        android:text="Nov, 11 2015"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/text_date_size"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <!-- Progress Bar/Seek bar -->
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="20dp" />
+
+</android.support.constraint.ConstraintLayout>

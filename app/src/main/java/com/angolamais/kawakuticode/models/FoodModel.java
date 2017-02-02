@@ -1,6 +1,8 @@
 package com.angolamais.kawakuticode.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.List;
 
@@ -8,18 +10,38 @@ import java.util.List;
  * Created by russeliusernestius on 26/01/17.
  */
 
-public class FoodModel {
+public class FoodModel implements Parcelable {
+
+    public static final Parcelable.Creator<FoodModel> CREATOR = new Parcelable.Creator<FoodModel>() {
+        @Override
+        public FoodModel createFromParcel(Parcel source) {
+            return new FoodModel(source);
+        }
+
+        @Override
+        public FoodModel[] newArray(int size) {
+            return new FoodModel[size];
+        }
+    };
     private String dish_name;
-    private Bitmap dish_img;
     private String time_preparation;
     private String number_people;
-
+    private Bitmap dish_img;
     private List<String> ingridients;
     private String preparation_text;
+
 
     public FoodModel() {
     }
 
+    protected FoodModel(Parcel in) {
+        this.dish_name = in.readString();
+        this.time_preparation = in.readString();
+        this.number_people = in.readString();
+        // this.dish_img = in.readParcelable(Bitmap.class.getClassLoader());
+        this.ingridients = in.createStringArrayList();
+        this.preparation_text = in.readString();
+    }
 
     public String getDish_name() {
         return dish_name;
@@ -79,5 +101,20 @@ public class FoodModel {
                 ", ingridients=" + ingridients +
                 ", preparation_text='" + preparation_text + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.dish_name);
+        dest.writeString(this.time_preparation);
+        dest.writeString(this.number_people);
+        //dest.writeParcelable(this.dish_img, flags);
+        dest.writeStringList(this.ingridients);
+        dest.writeString(this.preparation_text);
     }
 }

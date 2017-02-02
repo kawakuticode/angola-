@@ -2,7 +2,6 @@ package com.angolamais.kawakuticode.models;
 
 import android.graphics.Bitmap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -24,6 +23,10 @@ public class RestaurantModel {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getN_restaurant() {
         return n_restaurant;
     }
@@ -31,12 +34,6 @@ public class RestaurantModel {
     public void setN_restaurant(String n_restaurant) {
         this.n_restaurant = n_restaurant;
     }
-
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
 
     public String getPrice_range() {
         return price_range;
@@ -74,6 +71,10 @@ public class RestaurantModel {
         return type_food;
     }
 
+    public void setType_food(List<String> type_food) {
+        this.type_food = type_food;
+    }
+
     public String getType_food_string() {
 
         String result = "";
@@ -82,15 +83,13 @@ public class RestaurantModel {
 
             if (!it.hasNext()) {
                 result += it.next();
+
             } else {
-                result += it.next() + ",";
+                result += it.next() + " , ";
+
             }
         }
         return result;
-    }
-
-    public void setType_food( List<String> type_food) {
-        this.type_food = type_food;
     }
 
     public Bitmap getImg_rest() {

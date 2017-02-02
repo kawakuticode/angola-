@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -105,12 +106,14 @@ public class Radio_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.radio_card, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.card_view_radio);
         recyclerView.setHasFixedSize(true);
-       linearLayoutManager = new LinearLayoutManager(getContext());
+
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         radio_data = new ArrayList<>();
 
         (new Load_radio_data_from_webservice()).execute();
-        r_adapter = new RadioAdapter(radio_data);
+        r_adapter = new RadioAdapter(radio_data, getContext());
 
         recyclerView.setAdapter(r_adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -142,20 +145,6 @@ public class Radio_Fragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
     private ArrayList<RadioModel> load_radio_data_on_array(JSONArray json_array) {
 
         ArrayList<RadioModel> tmp_list = new ArrayList<RadioModel>();
@@ -187,6 +176,21 @@ public class Radio_Fragment extends Fragment {
             }
         }
         return tmp_list;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
     private class Load_radio_data_from_webservice extends AsyncTask<String, Void, List<RadioModel>> {
@@ -226,6 +230,7 @@ public class Radio_Fragment extends Fragment {
         protected void onPostExecute(List<RadioModel> radio_data_result) {
             super.onPostExecute(radio_data_result);
             if (radio_data_result.size() != 0) {
+                Collections.shuffle(radio_data_result);
                 r_adapter.notifyDataSetChanged();
                 pd.dismiss();
             } else if (radio_data_result.size() == 0) {

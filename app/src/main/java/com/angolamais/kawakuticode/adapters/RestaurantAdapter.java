@@ -32,6 +32,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public void onBindViewHolder(RestaurantAdapter.RestaurantHolder holder, int position) {
+
         holder.rest_name.setText(list_restaurant.get(position).getN_restaurant());
         holder.rest_city.setText(list_restaurant.get(position).getCity());
         holder.rest_img.setImageBitmap(list_restaurant.get(position).getImg_rest());
@@ -43,7 +44,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         return list_restaurant.size();
     }
 
-    public static class RestaurantHolder extends RecyclerView.ViewHolder {
+    public class RestaurantHolder extends RecyclerView.ViewHolder {
         public TextView rest_name, rest_city, food_type;
         public ImageView rest_img;
 

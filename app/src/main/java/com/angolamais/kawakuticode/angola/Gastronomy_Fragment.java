@@ -45,14 +45,11 @@ public class Gastronomy_Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final String GASTRONOMY_URL_API = "https://angolamaiswebservice.herokuapp.com/gastronomy";
+    private static final String GASTRONOMY_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/gastronomy";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
-    private static final String GASTRONOMY_URL_API = "https://angolamaiswebservice.herokuapp.com/gastronomy";
-    private static final String GASTRONOMY_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/gastronomy";
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private GastronomyAdapter g_adapter;
@@ -105,7 +102,7 @@ public class Gastronomy_Fragment extends Fragment {
         food_data = new ArrayList<>();
 
         (new Load_gastronomy_data_from_webservice()).execute();
-        g_adapter = new GastronomyAdapter(food_data);
+        g_adapter = new GastronomyAdapter(food_data, this.getContext());
 
         recyclerView.setAdapter(g_adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -190,6 +187,21 @@ public class Gastronomy_Fragment extends Fragment {
     }
 
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
     private class Load_gastronomy_data_from_webservice extends AsyncTask<String, Void, List<FoodModel>> {
 
 
@@ -236,20 +248,5 @@ public class Gastronomy_Fragment extends Fragment {
             pd.dismiss();
         }
 
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }
