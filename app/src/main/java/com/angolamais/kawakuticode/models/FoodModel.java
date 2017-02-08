@@ -12,6 +12,7 @@ import java.util.List;
 
 public class FoodModel implements Parcelable {
 
+
     public static final Parcelable.Creator<FoodModel> CREATOR = new Parcelable.Creator<FoodModel>() {
         @Override
         public FoodModel createFromParcel(Parcel source) {
@@ -27,20 +28,30 @@ public class FoodModel implements Parcelable {
     private String time_preparation;
     private String number_people;
     private Bitmap dish_img;
+    private String urlImg;
     private List<String> ingridients;
     private String preparation_text;
-
 
     public FoodModel() {
     }
 
     protected FoodModel(Parcel in) {
+
         this.dish_name = in.readString();
         this.time_preparation = in.readString();
         this.number_people = in.readString();
+        this.urlImg = in.readString();
         // this.dish_img = in.readParcelable(Bitmap.class.getClassLoader());
         this.ingridients = in.createStringArrayList();
         this.preparation_text = in.readString();
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 
     public String getDish_name() {
@@ -92,18 +103,6 @@ public class FoodModel implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "FoodModel{" +
-                "dish_name='" + dish_name + '\'' +
-                ", dish_img=" + dish_img +
-                ", time_preparation='" + time_preparation + '\'' +
-                ", number_people='" + number_people + '\'' +
-                ", ingridients=" + ingridients +
-                ", preparation_text='" + preparation_text + '\'' +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -113,8 +112,21 @@ public class FoodModel implements Parcelable {
         dest.writeString(this.dish_name);
         dest.writeString(this.time_preparation);
         dest.writeString(this.number_people);
+        dest.writeString(this.urlImg);
         //dest.writeParcelable(this.dish_img, flags);
         dest.writeStringList(this.ingridients);
         dest.writeString(this.preparation_text);
+    }
+
+    @Override
+    public String toString() {
+        return "FoodModel{" +
+                "dish_name='" + dish_name + '\'' +
+                ", dish_img=" + dish_img +
+                ", time_preparation='" + time_preparation + '\'' +
+                ", number_people='" + number_people + '\'' +
+                ", ingridients=" + ingridients +
+                ", preparation_text='" + preparation_text + '\'' +
+                '}';
     }
 }

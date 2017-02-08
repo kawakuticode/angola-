@@ -107,7 +107,6 @@ public class Gastronomy_Fragment extends Fragment {
         recyclerView.setAdapter(g_adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         return view;
     }
 
@@ -163,8 +162,10 @@ public class Gastronomy_Fragment extends Fragment {
                 food.setNumber_people(obj.getString("n_people"));
                 food.setPreparation_text(obj.getString("preparation"));
                 food.setTime_preparation(obj.getString("time_preparation"));
+                food.setUrlImg(obj.getString("image_url"));
 
                 food.setIngridients(load_ingridientes(obj.getJSONArray("ingridientes")));
+
                 URL url1 = new URL(obj.getString("image_url"));
 
                 Bitmap bmp = BitmapFactory.decodeStream(url1.openConnection().getInputStream());

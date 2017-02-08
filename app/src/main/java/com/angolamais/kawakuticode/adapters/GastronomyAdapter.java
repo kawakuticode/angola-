@@ -2,8 +2,8 @@ package com.angolamais.kawakuticode.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,6 @@ import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.angola.RecipeActivity;
 import com.angolamais.kawakuticode.models.FoodModel;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,6 +24,7 @@ public class GastronomyAdapter extends RecyclerView.Adapter<GastronomyAdapter.Ga
 
     List<FoodModel> food_list;
     private Context context;
+
 
     public GastronomyAdapter(List<FoodModel> food_list, Context context) {
         this.food_list = food_list;
@@ -91,23 +90,24 @@ public class GastronomyAdapter extends RecyclerView.Adapter<GastronomyAdapter.Ga
                 FoodModel food_v = food_list.get(position);
                 /// / We can access the data within the views
                 Intent food_intent = new Intent(this.hcontext, RecipeActivity.class);
+                Log.d("OnAdapter ", food_v.getUrlImg());
                 food_intent.putExtra("dish", food_v);
 
 
-                try {
+                /*try {
+
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     Bitmap bmp = food_v.getDish_img();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] bytes = stream.toByteArray();
+
+                    food_intent.putExtra("bitmapbytes", bytes);
                     //clean up
                     stream.close();
-                    food_intent.putExtra("bitmapbytes", bytes);
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
 
 
                 this.hcontext.startActivity(food_intent);
