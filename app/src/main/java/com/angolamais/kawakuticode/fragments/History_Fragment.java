@@ -1,4 +1,4 @@
-package com.angolamais.kawakuticode.angola;
+package com.angolamais.kawakuticode.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.angolamais.kawakuticode.angola.R;
 
 /**
  * A simple {@link Fragment} subclass.

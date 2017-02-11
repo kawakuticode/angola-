@@ -13,6 +13,8 @@ import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
 import com.angolamais.kawakuticode.Utilities.BitmapAsyncTaskLoader;
 import com.angolamais.kawakuticode.adapters.RecipeAdapter;
 import com.angolamais.kawakuticode.models.FoodModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class RecipeActivity extends AppCompatActivity {
     ImageView food_main_image;
@@ -20,6 +22,7 @@ public class RecipeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     RecipeAdapter recipeAdapter;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class RecipeActivity extends AppCompatActivity {
 
     public void initUIElementsFood() {
 
-        AngolaMaisUtilities utili = new AngolaMaisUtilities();
+
+        this.imageLoader.init(ImageLoaderConfiguration.createDefault(this));
 
         food_main_image = (ImageView) findViewById(R.id.food_image);
         dish_name = (TextView) findViewById(R.id.food_title);
@@ -66,8 +70,8 @@ public class RecipeActivity extends AppCompatActivity {
 
         dish_name.setText(food_content.getDish_name());
         time_cook.setText(food_content.getTime_preparation());
-        content_desc.setText(utili.recipeDisplay(food_content.getIngridients(), food_content.getPreparation_text()));
-
+        content_desc.setText(AngolaMaisUtilities.recipeDisplay(food_content.getIngridients(), food_content.getPreparation_text()));
+        // imageLoader.displayImage(food_content.getUrlImg(), food_main_image);
         new BitmapAsyncTaskLoader(food_main_image, this).execute(food_content.getUrlImg());
 
     }

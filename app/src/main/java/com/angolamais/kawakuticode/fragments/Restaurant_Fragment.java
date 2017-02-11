@@ -1,4 +1,4 @@
-package com.angolamais.kawakuticode.angola;
+package com.angolamais.kawakuticode.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.angolamais.kawakuticode.adapters.TourismAdapter;
-import com.angolamais.kawakuticode.models.TourismModel;
+import com.angolamais.kawakuticode.adapters.RestaurantAdapter;
+import com.angolamais.kawakuticode.angola.R;
+import com.angolamais.kawakuticode.models.RestaurantModel;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -36,33 +37,28 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Tourism_Fragment.OnFragmentInteractionListener} interface
+ * {@link Restaurant_Fragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Tourism_Fragment#newInstance} factory method to
+ * Use the {@link Restaurant_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Tourism_Fragment extends Fragment {
+public class Restaurant_Fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private static final String TOURISM_URL_API = "https://angolamaiswebservice.herokuapp.com/tourism";
-    private static final String TOURISM_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/tourism";
-    private RecyclerView recyclerView;
-    private LinearLayoutManager gridLayoutManager;
-    private TourismAdapter t_adapter;
-    private List<TourismModel> tourism_data ;
-
-    private ProgressDialog pd;
-
+    private static final String RESTAURANT_URL_API = "https://angolamaiswebservice.herokuapp.com/restaurant";
+    private static final String RESTAURANT_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/restaurant";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
-    public Tourism_Fragment() {
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private RestaurantAdapter r_adapter;
+    private List<RestaurantModel> restaurant_data;
+    private ProgressDialog pd;
+    public Restaurant_Fragment() {
         // Required empty public constructor
     }
 
@@ -72,11 +68,11 @@ public class Tourism_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Tourism_Fragment.
+     * @return A new instance of fragment Restaurant_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Tourism_Fragment newInstance(String param1, String param2) {
-        Tourism_Fragment fragment = new Tourism_Fragment();
+    public static Restaurant_Fragment newInstance(String param1, String param2) {
+        Restaurant_Fragment fragment = new Restaurant_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -87,7 +83,8 @@ public class Tourism_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Tourism Atractions In Angola");
+        getActivity().setTitle("Restaurants In Angola");
+
         pd = new ProgressDialog(getContext());
         pd.setProgressStyle(0);
         pd.setTitle("Loading....... ");
@@ -103,22 +100,20 @@ public class Tourism_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.tourism_card, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.cardView_tourism);
+        View view = inflater.inflate(R.layout.restaurant_card, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.card_view_restaurant);
         recyclerView.setHasFixedSize(true);
-        gridLayoutManager = new LinearLayoutManager(getContext());
-        gridLayoutManager.setOrientation(gridLayoutManager.VERTICAL);
-        tourism_data = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
+        restaurant_data = new ArrayList<>();
 
-        (new Load_tourism_data_from_webservice()).execute();
-        t_adapter = new TourismAdapter(tourism_data);
+        (new Load_restaurant_data_from_webservice()).execute();
+        r_adapter = new RestaurantAdapter(restaurant_data);
 
-        recyclerView.setAdapter(t_adapter);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(r_adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-        return view;
-
+    return view;
 
     }
 
@@ -146,39 +141,44 @@ public class Tourism_Fragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-    private ArrayList<TourismModel> load_tourism_data_on_array(JSONArray json_array) {
+    private List <String> load_type_of_food(JSONArray ing) {
+        List<String> type_of_food = new ArrayList<>();
+        try {
+            for (int x = 0; x < ing.length(); x++) {
 
-        ArrayList<TourismModel> tmp_list = new ArrayList<TourismModel>();
+                type_of_food.add(ing.getString(x));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return type_of_food;
+    }
+
+    private ArrayList<RestaurantModel> load_restaurant_data_on_array(JSONArray json_array) {
+
+        ArrayList<RestaurantModel> tmp_list = new ArrayList<RestaurantModel>();
 
         for (int i = 0; i < json_array.length(); i++) {
 
-            TourismModel tour_tmp = new TourismModel();
+            RestaurantModel restaurant = new RestaurantModel();
             try {
+
                 JSONObject obj = json_array.getJSONObject(i);
-                tour_tmp.setAtraction_name(obj.getString("atraction_name"));
-                tour_tmp.setCity(obj.getString("city"));
-                tour_tmp.setInfo(obj.getString("info"));
-                tour_tmp.setLocation(obj.getString("location"));
-                URL url1 = new URL(obj.getString("img_url"));
+
+                restaurant.setN_restaurant(obj.getString("rest_name"));
+                restaurant.setCity(obj.getString("city"));
+                restaurant.setPrice_range(obj.getString("price_range"));
+                restaurant.setTelephone(obj.getString("telephone"));
+                restaurant.setAdress(obj.getString("address"));
+                restaurant.setFacebook_url("facebook_url");
+                restaurant.setType_food(load_type_of_food(obj.getJSONArray("type_of_food")));
+
+                URL url1 = new URL(obj.getString("image_url"));
 
                 Bitmap bmp = BitmapFactory.decodeStream(url1.openConnection().getInputStream());
-                tour_tmp.setTour_thumbnail(bmp);
+                restaurant.setImg_rest(bmp);
 
-                tmp_list.add(tour_tmp);
+                tmp_list.add(restaurant);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -193,22 +193,39 @@ public class Tourism_Fragment extends Fragment {
         return tmp_list;
     }
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
-    private class Load_tourism_data_from_webservice extends AsyncTask<String, Void, List<TourismModel>> {
+    private class Load_restaurant_data_from_webservice extends AsyncTask<String, Void, List<RestaurantModel>> {
 
 
         @Override
-        protected List<TourismModel> doInBackground(String... params) {
+        protected List<RestaurantModel> doInBackground(String... params) {
             OkHttpClient client = new OkHttpClient();
 
             //  Request request = new Request.Builder().url(TOURISM_URL_API).build();
 
-            Request request = new Request.Builder().url(TOURISM_URL_API_LOCAL).build();
+            Request request = new Request.Builder().url(RESTAURANT_URL_API_LOCAL).build();
             try {
                 Response response = client.newCall(request).execute();
                 JSONArray array_json = new JSONArray(response.body().string());
 
-                tourism_data.addAll(load_tourism_data_on_array(array_json));
+                Log.d("moddddd" , response.toString());
+                Log.d("moddddd" , array_json.toString());
+
+               restaurant_data.addAll(load_restaurant_data_on_array(array_json));
 
 
             } catch (IOException e) {
@@ -217,7 +234,7 @@ public class Tourism_Fragment extends Fragment {
                 e.printStackTrace();
             }
 
-            return tourism_data;
+            return restaurant_data;
         }
 
         @Override
@@ -228,20 +245,20 @@ public class Tourism_Fragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<TourismModel> tourism_data_result) {
-            super.onPostExecute(tourism_data_result);
-            if (tourism_data_result.size() != 0) {
-                t_adapter.notifyDataSetChanged();
+        protected void onPostExecute(List <RestaurantModel> restaurant_data_result) {
+            super.onPostExecute(restaurant_data_result);
+            if (restaurant_data_result.size() != 0) {
+                r_adapter.notifyDataSetChanged();
                 pd.dismiss();
-            } else if (tourism_data_result.size() == 0) {
+            } else if (restaurant_data_result.size() == 0) {
+
+                Toast.makeText(getContext(), "No Restaurants places found " + restaurant_data_result.size() + "", Toast.LENGTH_LONG).show();
                 pd.dismiss();
-                Toast.makeText(getContext(), "No Tour places found " + tourism_data_result.size() + "", Toast.LENGTH_LONG).show();
             }
-            pd.dismiss();
+
         }
 
     }
 
 
 }
-

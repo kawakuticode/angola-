@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.angolamais.kawakuticode.angola.RecipeActivity"
     tools:layout_editor_absoluteX="0dp"
@@ -14,11 +15,12 @@
 
     <LinearLayout
         android:id="@+id/all_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="57dp"
+        android:layout_width="361dp"
+        android:layout_height="552dp"
+        android:layout_marginTop="49dp"
         android:orientation="vertical"
         android:weightSum="4"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         app:layout_constraintRight_toRightOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
@@ -102,30 +104,26 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="376dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/time_cooki"
             android:orientation="horizontal"
-            android:padding="@dimen/icon_padding">
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/full_recipe"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+
                 android:fontFamily="monospace"
                 android:text="ingrid"
                 android:textAlignment="center"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/divider_food"
-            android:padding="5dp" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by russeliusernestius on 07/02/17.
@@ -30,18 +31,21 @@ public class BitmapAsyncTaskLoader extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... params) {
         Bitmap bitmap = null;
         try {
+
             URL url1 = new URL(params[0]);
-            bitmap = BitmapFactory.decodeStream(url1.openConnection().getInputStream());
+            URLConnection con = url1.openConnection();
+            bitmap = BitmapFactory.decodeStream(con.getInputStream());
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return bitmap;
     }
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
+
         pb = new ProgressDialog(this.mContext);
         pb.setMessage("Downloading content ......");
         pb.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -52,8 +56,6 @@ public class BitmapAsyncTaskLoader extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        super.onPostExecute(bitmap);
-
         view.setImageBitmap(bitmap);
         pb.dismiss();
 

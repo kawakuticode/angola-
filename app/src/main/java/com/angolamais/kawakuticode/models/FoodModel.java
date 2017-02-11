@@ -13,6 +13,7 @@ import java.util.List;
 public class FoodModel implements Parcelable {
 
 
+
     public static final Parcelable.Creator<FoodModel> CREATOR = new Parcelable.Creator<FoodModel>() {
         @Override
         public FoodModel createFromParcel(Parcel source) {
@@ -31,6 +32,7 @@ public class FoodModel implements Parcelable {
     private String urlImg;
     private List<String> ingridients;
     private String preparation_text;
+
 
     public FoodModel() {
     }

@@ -2,10 +2,9 @@ package com.angolamais.kawakuticode.angola;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.angolamais.kawakuticode.fragments.Gastronomy_Fragment;
+import com.angolamais.kawakuticode.fragments.History_Fragment;
+import com.angolamais.kawakuticode.fragments.Radio_Fragment;
+import com.angolamais.kawakuticode.fragments.Restaurant_Fragment;
+import com.angolamais.kawakuticode.fragments.Tourism_Fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

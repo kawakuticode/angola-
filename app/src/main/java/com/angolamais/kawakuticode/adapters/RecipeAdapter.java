@@ -20,12 +20,11 @@ import com.angolamais.kawakuticode.models.FoodModel;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHolder> {
 
     private FoodModel food_recipe;
-    private AngolaMaisUtilities utilities;
+
     private Intent intent_input;
 
     public RecipeAdapter(FoodModel food_recipe, Intent intent_in) {
         this.food_recipe = food_recipe;
-        this.utilities = new AngolaMaisUtilities();
         this.intent_input = intent_in;
     }
 
@@ -49,10 +48,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
         holder.time_clock.setText(getFood_recipe().getTime_preparation());
         holder.food_title.setText(getFood_recipe().getDish_name());
 
-        holder.full_recipe.setText(utilities.recipeDisplay(getFood_recipe().getIngridients(), getFood_recipe().getPreparation_text()));
+        holder.full_recipe.setText(AngolaMaisUtilities.recipeDisplay(getFood_recipe().getIngridients(), getFood_recipe().getPreparation_text()));
 
         holder.clock_image.setImageResource(R.drawable.ic_time_cook);
-        holder.food_image.setImageBitmap(utilities.getBitmapFromIntent(intent_input));
+        holder.food_image.setImageBitmap(AngolaMaisUtilities.getBitmapFromIntent(intent_input));
 
 
     }

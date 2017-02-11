@@ -41,6 +41,11 @@
             android:name=".RecipeActivity"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".TourismActivity"
+            android:label="@string/title_activity_tourism"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
