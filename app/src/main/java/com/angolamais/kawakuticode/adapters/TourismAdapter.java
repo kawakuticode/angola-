@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.angola.TourismActivity;
 import com.angolamais.kawakuticode.models.TourismModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -25,12 +27,15 @@ import static com.angolamais.kawakuticode.angola.R.id.coverImageView;
 public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismHolder> {
 
     List<TourismModel> tourism_items;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
 
     public TourismAdapter(List<TourismModel> list, Context context) {
 
         this.tourism_items = list;
         this.context = context;
+        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+
     }
 
 
@@ -45,9 +50,16 @@ public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismH
 
         holder.atraction_name.setText(tourism_items.get(position).getAtraction_name());
         holder.city.setText(tourism_items.get(position).getCity());
-        holder.img.setImageBitmap(tourism_items.get(position).getTour_thumbnail());
         holder.likeImageView.setTag(R.drawable.ic_like);
         holder.shareImageView.setTag(R.drawable.ic_share);
+        if (tourism_items.get(position).getTour_thumbnail() != null) {
+            holder.img.setImageBitmap(tourism_items.get(position).getTour_thumbnail());
+        } else {
+            List<String> gallery_images = tourism_items.get(position).getGallery_images();
+            int choosed_image = AngolaMaisUtilities.getRandomNumberInRange(0, gallery_images.size() - 1);
+            imageLoader.displayImage(gallery_images.get(choosed_image), holder.img);
+        }
+
 
     }
 
@@ -85,33 +97,6 @@ public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismH
             v.setOnClickListener(this);
         }
 
-        // likeImageView.setOnClickListener(new View.OnClickListener() {
-    /*            @Override
-                public void onClick(View v) {
-                    int id = (int) likeImageView.getTag();
-                    if (id == R.drawable.ic_like) {
-
-                        likeImageView.setTag(R.drawable.ic_liked);
-                        likeImageView.setImageResource(R.drawable.ic_liked);
-                        // Toast.makeText(getActivity(), atraction_name.getText() + " added to favourites", Toast.LENGTH_SHORT).show();
-
-                    } else {
-
-                        likeImageView.setTag(R.drawable.ic_like);
-                        likeImageView.setImageResource(R.drawable.ic_like);
-                        // Toast.makeText(getActivity(), atraction_name.getText() + " removed from favourites", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
-            shareImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                  /*
-                }
-            });
-        }*/
-
         @Override
         public void onClick(View v) {
 
@@ -147,8 +132,7 @@ public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismH
                         TourismModel tourism_item = tourism_items.get(position);
                         /// / We can access the data within the views
                         Intent tourism_intent = new Intent(this.mcontext, TourismActivity.class);
-                        Log.d("OnAdapter ", tourism_item.getAtraction_name());
-                        tourism_intent.putExtra("tourism", tourism_item);
+                        tourism_intent.putExtra("tourism_item", tourism_item);
 
                         this.mcontext.startActivity(tourism_intent);
 

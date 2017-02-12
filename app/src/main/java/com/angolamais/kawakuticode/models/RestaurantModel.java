@@ -1,6 +1,8 @@
 package com.angolamais.kawakuticode.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -9,14 +11,38 @@ import java.util.ListIterator;
  * Created by russeliusernestius on 26/01/17.
  */
 
-public class RestaurantModel {
+public class RestaurantModel implements Parcelable {
 
 
+    public static final Parcelable.Creator<RestaurantModel> CREATOR = new Parcelable.Creator<RestaurantModel>() {
+        @Override
+        public RestaurantModel createFromParcel(Parcel source) {
+            return new RestaurantModel(source);
+        }
+
+        @Override
+        public RestaurantModel[] newArray(int size) {
+            return new RestaurantModel[size];
+        }
+    };
     private String n_restaurant, price_range, telephone, adress, facebook_url, city;
     private List<String> type_food;
+    private List<String> gallery_urls;
     private Bitmap img_rest;
 
     public RestaurantModel() {
+    }
+
+    protected RestaurantModel(Parcel in) {
+        this.n_restaurant = in.readString();
+        this.price_range = in.readString();
+        this.telephone = in.readString();
+        this.adress = in.readString();
+        this.facebook_url = in.readString();
+        this.city = in.readString();
+        this.type_food = in.createStringArrayList();
+        this.gallery_urls = in.createStringArrayList();
+        //this.img_rest = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public String getCity() {
@@ -75,6 +101,14 @@ public class RestaurantModel {
         this.type_food = type_food;
     }
 
+    public List<String> getGallery_urls() {
+        return gallery_urls;
+    }
+
+    public void setGallery_urls(List<String> gallery_urls) {
+        this.gallery_urls = gallery_urls;
+    }
+
     public String getType_food_string() {
 
         String result = "";
@@ -113,5 +147,21 @@ public class RestaurantModel {
                 '}';
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.n_restaurant);
+        dest.writeString(this.price_range);
+        dest.writeString(this.telephone);
+        dest.writeString(this.adress);
+        dest.writeString(this.facebook_url);
+        dest.writeString(this.city);
+        dest.writeStringList(this.type_food);
+        dest.writeStringList(this.gallery_urls);
+        // dest.writeParcelable(this.img_rest, flags);
+    }
 }

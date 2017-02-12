@@ -20,6 +20,7 @@ import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.models.FoodModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -77,7 +78,12 @@ public class Gastronomy_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Gastronomy of Angola");
-        requestDataFromWebServive(GASTRONOMY_URL_API_LOCAL);
+        requestDataFoodFromWebService(GASTRONOMY_URL_API_LOCAL);
+
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
 
     }
     @Override
@@ -87,6 +93,7 @@ public class Gastronomy_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.gastronomy_card, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.card_view_gastronomy);
         recyclerView.setHasFixedSize(true);
+
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
 
@@ -97,7 +104,8 @@ public class Gastronomy_Fragment extends Fragment {
         return view;
     }
 
-    private void requestDataFromWebServive(String url_content) {
+    private void requestDataFoodFromWebService(String url_content) {
+
         MyRecipsAsyncTask task = new MyRecipsAsyncTask();
         task.execute(url_content);
     }
@@ -176,7 +184,8 @@ public class Gastronomy_Fragment extends Fragment {
 
         @Override
         protected void onPostExecute(String stringFromWebService) {
-            recips_list = JsonParsers.getFoodRecipsParser(stringFromWebService);
+            recips_list = JsonParsers.foodRecipsParser(stringFromWebService);
+            Collections.shuffle(recips_list);
             updateDisplay();
             pd.dismiss();
         }

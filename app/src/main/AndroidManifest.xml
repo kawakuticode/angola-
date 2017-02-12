@@ -40,11 +40,14 @@
         <activity
             android:name=".RecipeActivity"
             android:label="@string/title_activity_recipe"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TourismActivity"
             android:label="@string/title_activity_tourism"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RestaurantActivity"
+            android:label="@string/title_activity_restaurant"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

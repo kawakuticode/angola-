@@ -9,7 +9,6 @@ import android.os.Parcelable;
  */
 
 public class RadioModel implements Parcelable {
-
     public static final Parcelable.Creator<RadioModel> CREATOR
             = new Parcelable.Creator<RadioModel>() {
 
@@ -23,7 +22,10 @@ public class RadioModel implements Parcelable {
             return new RadioModel[size];
         }
     };
-    private String radio_name, intro_message , radio_url ;
+    private String radio_name;
+    private String intro_message;
+    private String radio_url;
+    private String radio_img_url;
     private Bitmap radio_thumbnail;
 
 
@@ -34,6 +36,7 @@ public class RadioModel implements Parcelable {
         radio_name = in.readString();
         intro_message = in.readString();
         radio_url = in.readString();
+        radio_img_url = in.readString();
     }
 
     public String getRadio_name() {
@@ -68,14 +71,12 @@ public class RadioModel implements Parcelable {
         this.radio_thumbnail = radio_thumbnail;
     }
 
-    @Override
-    public String toString() {
-        return "RadioModel{" +
-                "radio_name='" + radio_name + '\'' +
-                ", intro_message='" + intro_message + '\'' +
-                ", radio_url='" + radio_url + '\'' +
-                ", radio_thumbnail=" + radio_thumbnail +
-                '}';
+    public String getRadio_img_url() {
+        return radio_img_url;
+    }
+
+    public void setRadio_img_url(String radio_img_url) {
+        this.radio_img_url = radio_img_url;
     }
 
     @Override
@@ -83,15 +84,22 @@ public class RadioModel implements Parcelable {
         return 0;
     }
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
         dest.writeString(radio_name);
         dest.writeString(intro_message);
         dest.writeString(radio_url);
+        dest.writeString(radio_img_url);
+    }
 
-
-        ;
+    @Override
+    public String toString() {
+        return "RadioModel{" +
+                "radio_name='" + radio_name + '\'' +
+                ", intro_message='" + intro_message + '\'' +
+                ", radio_url='" + radio_url + '\'' +
+                ", radio_img_url=" + radio_img_url +
+                '}';
     }
 }

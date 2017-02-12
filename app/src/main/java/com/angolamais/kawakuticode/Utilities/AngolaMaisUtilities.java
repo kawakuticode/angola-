@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by russeliusernestius on 01/02/17.
@@ -24,14 +25,12 @@ public class AngolaMaisUtilities {
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(cacheSize()); // 50 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        //  config.writeDebugLogs(); // Remove for release app
+        config.diskCacheSize(cacheSize());
+        config.tasksProcessingOrder(QueueProcessingType.FIFO);
+
 
         return config;
-        // Initialize ImageLoader with configuration.
 
-        //ImageLoader.getInstance().init(config.build());
     }
 
     public static int cacheSize() {
@@ -41,6 +40,17 @@ public class AngolaMaisUtilities {
         return cache_size;
 
     }
+
+    public static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
 
     public static Bitmap getBitmapFromIntent(Intent intent_input) {
         Bitmap bmp = null;

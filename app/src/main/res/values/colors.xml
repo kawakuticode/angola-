@@ -6,4 +6,5 @@
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="view_divider_color">#BABABA</color>
     <color name="view_divider_color_2">#DADADA</color>
+    <color name="restaurant_background_dark_transparent">#806e8bff</color>
 </resources>

@@ -30,8 +30,9 @@ public class GastronomyAdapter extends RecyclerView.Adapter<GastronomyAdapter.Ga
 
     public GastronomyAdapter(List<FoodModel> food_list, Context context) {
         this.context = context;
-        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
         this.food_list = food_list;
+        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+
     }
 
     @Override

@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
 import com.angolamais.kawakuticode.angola.Listen_Radio_activity;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.models.RadioModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -26,10 +28,14 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.RadioHolder>
     // Store the context for easy access
     private Context mContext;
     private List<RadioModel> radio_list;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
 
     public RadioAdapter(List<RadioModel> radio_data, Context context) {
+
         this.mContext = context;
         this.radio_list = radio_data;
+        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+
     }
 
     // Easy access to the context object in the recyclerview
@@ -46,9 +52,13 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.RadioHolder>
     @Override
     public void onBindViewHolder(RadioAdapter.RadioHolder holder, int position) {
         holder.radio_name.setText(radio_list.get(position).getRadio_name());
-        holder.radio_logo.setImageBitmap(radio_list.get(position).getRadio_thumbnail());
         holder.intro_info.setText(radio_list.get(position).getIntro_message());
 
+        if (radio_list.get(position).getRadio_thumbnail() != null) {
+            holder.radio_logo.setImageBitmap(radio_list.get(position).getRadio_thumbnail());
+        } else {
+            imageLoader.displayImage(radio_list.get(position).getRadio_img_url(), holder.radio_logo);
+        }
     }
 
     @Override
@@ -85,7 +95,6 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.RadioHolder>
                 Intent listen_radio_intent = new Intent(this.context, Listen_Radio_activity.class);
                 listen_radio_intent.putExtra("radio", radio);
                 this.context.startActivity(listen_radio_intent);
-                //Toast.makeText(context, radio.getRadio_name(), Toast.LENGTH_SHORT).show();
             }
         }
     }
