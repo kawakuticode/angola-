@@ -2,20 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_history"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="History" />
+
         <item
             android:id="@+id/nav_tourism"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_food"
             android:title="Tourism" />
         <item
             android:id="@+id/nav_radios"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_food"
             android:title="Radios" />
         <item
             android:id="@+id/nav_gastronomy"
+            android:icon="@drawable/ic_food"
             android:title="Gastronomy"
 
             />
@@ -23,7 +21,7 @@
 
         <item
             android:id="@+id/nav_restaurant"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_restaurant"
             android:title="Restaurant" />
     </group>
 

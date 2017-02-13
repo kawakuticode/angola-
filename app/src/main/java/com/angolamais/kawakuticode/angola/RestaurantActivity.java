@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +24,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.HashMap;
 
-public class RestaurantActivity extends FragmentActivity implements View.OnClickListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class RestaurantActivity extends AppCompatActivity implements View.OnClickListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private static final String PACKAGE_CHROME = "com.android.chrome";
     private static final String PACKAGE_MAPS = "com.google.android.apps.maps";
@@ -34,8 +35,7 @@ public class RestaurantActivity extends FragmentActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
-         /*   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);*/
+
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
         initUIElements();
@@ -73,6 +73,19 @@ public class RestaurantActivity extends FragmentActivity implements View.OnClick
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         TextView rest_name = (TextView) findViewById(R.id.restaurant);
         rest_name.setText(restaurant_item.getN_restaurant());
@@ -121,7 +134,6 @@ public class RestaurantActivity extends FragmentActivity implements View.OnClick
                 break;
 
             case R.id.internet_icon:
-                Toast.makeText(this, "bonhosdasd nhovoasd ", Toast.LENGTH_SHORT).show();
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
                 browserIntent.setData(Uri.parse(restaurant_item.getFacebook_url().trim()));
                 browserIntent.setPackage(PACKAGE_CHROME);
@@ -141,6 +153,10 @@ public class RestaurantActivity extends FragmentActivity implements View.OnClick
                 startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send)));*/
 
                 break;
+
+           /* case R.id.toolbar:
+                Toast.makeText(this, "bonhosdasd nhovoasd ", Toast.LENGTH_SHORT).show();
+                break;*/
         }
 
 
@@ -168,6 +184,7 @@ public class RestaurantActivity extends FragmentActivity implements View.OnClick
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
         }
         return super.onOptionsItemSelected(item);
     }

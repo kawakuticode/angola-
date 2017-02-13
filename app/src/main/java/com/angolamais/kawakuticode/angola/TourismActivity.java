@@ -1,11 +1,14 @@
 package com.angolamais.kawakuticode.angola;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +22,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import java.util.HashMap;
 
 
-public class TourismActivity extends FragmentActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class TourismActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
 
     private SliderLayout mDemoSlider;
@@ -34,6 +37,21 @@ public class TourismActivity extends FragmentActivity implements BaseSliderView.
     }
 
     public void initUIElements() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         TourismModel tourism_item = getIntent().getParcelableExtra("tourism_item");
 
@@ -63,10 +81,16 @@ public class TourismActivity extends FragmentActivity implements BaseSliderView.
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
 
+
+        TextView atraction_name = (TextView) findViewById(R.id.txt_atract_name);
+        atraction_name.setText(tourism_item.getAtraction_name());
+
         TextView city = (TextView) findViewById(R.id.city_text);
         city.setText(tourism_item.getCity());
 
         TextView description = (TextView) findViewById(R.id.description_item);
+        description.setMovementMethod(new ScrollingMovementMethod());
+
         description.setText(tourism_item.getInfo());
     }
 

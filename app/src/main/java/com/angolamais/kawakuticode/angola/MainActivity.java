@@ -14,14 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.angolamais.kawakuticode.fragments.Gastronomy_Fragment;
-import com.angolamais.kawakuticode.fragments.History_Fragment;
 import com.angolamais.kawakuticode.fragments.Radio_Fragment;
 import com.angolamais.kawakuticode.fragments.Restaurant_Fragment;
 import com.angolamais.kawakuticode.fragments.Tourism_Fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        History_Fragment.OnFragmentInteractionListener,
         Tourism_Fragment.OnFragmentInteractionListener,
         Radio_Fragment.OnFragmentInteractionListener,
         Gastronomy_Fragment.OnFragmentInteractionListener,
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         Class fragmentClass = null;
-        fragmentClass = History_Fragment.class;
+        fragmentClass = Tourism_Fragment.class;
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -104,12 +102,7 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
 
 
-
-        if (id == R.id.nav_history) {
-
-            fragmentClass = History_Fragment.class;
-
-        } else if (id == R.id.nav_tourism) {
+        if (id == R.id.nav_tourism) {
             fragmentClass = Tourism_Fragment.class;
 
         } else if (id == R.id.nav_gastronomy) {
@@ -123,7 +116,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-            fragmentClass = History_Fragment.class;
+            fragmentClass = Tourism_Fragment.class;
 
         }
 

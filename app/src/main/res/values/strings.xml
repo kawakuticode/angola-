@@ -16,9 +16,9 @@
     <string name="hello_gastronomy_fragment">Hello Gastronomy fragment</string>
     <string name="hello_restaurant_fragment">Hello Restaurant fragment</string>
     <string name="title_activity_listen__radio_activity">Listen Radio</string>
-    <string name="title_activity_recipe">RecipeActivity</string>
-    <string name="title_activity_tourism">TourismActivity</string>
-    <string name="title_activity_restaurant">RestaurantActivity</string>
+    <string name="title_activity_recipe">Recipe</string>
+    <string name="title_activity_tourism">Tourism</string>
+    <string name="title_activity_restaurant">Restaurant</string>
 
 
 </resources>
