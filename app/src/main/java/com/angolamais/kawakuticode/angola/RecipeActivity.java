@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
+import com.angolamais.kawakuticode.Utilities.AMUtilities;
 import com.angolamais.kawakuticode.Utilities.BitmapAsyncTaskLoader;
 import com.angolamais.kawakuticode.models.FoodModel;
 
@@ -58,7 +58,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         dish_name.setText(food_content.getDish_name());
         time_cook.setText(food_content.getTime_preparation());
-        content_desc.setText(AngolaMaisUtilities.recipeDisplay(food_content.getIngridients(), food_content.getPreparation_text()));
+        content_desc.setText(AMUtilities.recipeDisplay(food_content.getIngridients(), food_content.getPreparation_text()));
         new BitmapAsyncTaskLoader(food_main_image, this).execute(food_content.getUrlImg());
 
     }

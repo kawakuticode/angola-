@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
+import com.angolamais.kawakuticode.Utilities.AMUtilities;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.angola.RecipeActivity;
 import com.angolamais.kawakuticode.models.FoodModel;
@@ -31,7 +31,7 @@ public class GastronomyAdapter extends RecyclerView.Adapter<GastronomyAdapter.Ga
     public GastronomyAdapter(List<FoodModel> food_list, Context context) {
         this.context = context;
         this.food_list = food_list;
-        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+        this.imageLoader.init(AMUtilities.configuratioImageLoader(context).build());
 
     }
 

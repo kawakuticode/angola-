@@ -21,8 +21,14 @@
 
         <item
             android:id="@+id/nav_restaurant"
-            android:icon="@drawable/ic_restaurant"
+            android:icon="@drawable/ic_food"
             android:title="Restaurant" />
+
+        <item
+            android:id="@+id/nav_metereology"
+            android:icon="@drawable/ic_food"
+            android:title="Metereology" />
+
     </group>
 
     <item android:title="Communicate">

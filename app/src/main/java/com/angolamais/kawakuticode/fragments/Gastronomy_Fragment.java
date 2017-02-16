@@ -96,8 +96,6 @@ public class Gastronomy_Fragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
-
-
         recyclerView.setLayoutManager(linearLayoutManager);
 
 

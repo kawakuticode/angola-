@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
+import com.angolamais.kawakuticode.Utilities.AMUtilities;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.angola.TourismActivity;
 import com.angolamais.kawakuticode.models.TourismModel;
@@ -34,7 +34,7 @@ public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismH
 
         this.tourism_items = list;
         this.context = context;
-        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+        this.imageLoader.init(AMUtilities.configuratioImageLoader(context).build());
 
     }
 
@@ -56,7 +56,7 @@ public class TourismAdapter extends RecyclerView.Adapter<TourismAdapter.TourismH
             holder.img.setImageBitmap(tourism_items.get(position).getTour_thumbnail());
         } else {
             List<String> gallery_images = tourism_items.get(position).getGallery_images();
-            int choosed_image = AngolaMaisUtilities.getRandomNumberInRange(0, gallery_images.size() - 1);
+            int choosed_image = AMUtilities.getRandomNumberInRange(0, gallery_images.size() - 1);
             imageLoader.displayImage(gallery_images.get(choosed_image), holder.img);
         }
 

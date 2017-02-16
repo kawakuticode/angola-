@@ -40,5 +40,7 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'android.zetterstrom.com.forecast:forecast:1.2.0'
+
     testCompile 'junit:junit:4.12'
 }

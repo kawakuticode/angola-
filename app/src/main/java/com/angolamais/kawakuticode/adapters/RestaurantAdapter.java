@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
+import com.angolamais.kawakuticode.Utilities.AMUtilities;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.angola.RestaurantActivity;
 import com.angolamais.kawakuticode.models.RestaurantModel;
@@ -30,7 +30,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public RestaurantAdapter(List<RestaurantModel> restaurant_data, Context context) {
         this.context = context;
         this.list_restaurant = restaurant_data;
-        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+        this.imageLoader.init(AMUtilities.configuratioImageLoader(context).build());
     }
 
     public Context getContext() {
@@ -55,7 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             holder.rest_img.setImageBitmap(list_restaurant.get(position).getImg_rest());
         } else {
             List<String> gallery_images = list_restaurant.get(position).getGallery_urls();
-            int choosed_image_for_rest = AngolaMaisUtilities.getRandomNumberInRange(0, gallery_images.size() - 1);
+            int choosed_image_for_rest = AMUtilities.getRandomNumberInRange(0, gallery_images.size() - 1);
             imageLoader.displayImage(gallery_images.get(choosed_image_for_rest), holder.rest_img);
         }
     }

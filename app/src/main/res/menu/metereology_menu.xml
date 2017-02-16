@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bengo"
+        android:title="Bengo" />
+
+    <item
+        android:id="@+id/benguela"
+        android:title="Benguela" />
+    <item
+        android:id="@+id/bie"
+        android:title="Bie" />
+    <item
+        android:id="@+id/cabinda"
+        android:title="Cabinda" />
+    <item
+        android:id="@+id/ccubango"
+        android:title="CCubango" />
+    <item
+        android:id="@+id/knorte"
+        android:title="KNorte" />
+    <item
+        android:id="@+id/ksul"
+        android:title="KSul" />
+    <item
+        android:id="@+id/cunene"
+        android:title="Cunene" />
+    <item
+        android:id="@+id/huambo"
+        android:title="Huambo" />
+    <item
+        android:id="@+id/huila"
+        android:title="Huila" />
+    <item
+        android:id="@+id/luanda"
+        android:title="Luanda" />
+    <item
+        android:id="@+id/lnorte"
+        android:title="LNorte" />
+    <item
+        android:id="@+id/lsul"
+        android:title="LSul" />
+    <item
+        android:id="@+id/malange"
+        android:title="Malange" />
+    <item
+        android:id="@+id/moxico"
+        android:title="Moxico" />
+    <item
+        android:id="@+id/namibe"
+        android:title="Namibe" />
+    <item
+        android:id="@+id/uige"
+        android:title="Uige" />
+    <item
+        android:id="@+id/zaire"
+        android:title="Zaire" />
+</menu>

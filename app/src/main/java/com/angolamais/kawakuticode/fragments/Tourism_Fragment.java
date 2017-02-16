@@ -33,10 +33,6 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class Tourism_Fragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private static final String TOURISM_URL_API = "https://angolamaiswebservice.herokuapp.com/tourism";
     private static final String TOURISM_URL_API_LOCAL = "http://10.0.2.2:8080/angolamaiswebservice/tourism";
@@ -60,18 +56,12 @@ public class Tourism_Fragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+
      * @return A new instance of fragment Tourism_Fragment.
      */
     // TODO: Rename and change types and number of parameters
     public static Tourism_Fragment newInstance(String param1, String param2) {
         Tourism_Fragment fragment = new Tourism_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -82,10 +72,6 @@ public class Tourism_Fragment extends Fragment {
         requestDataTourismFromWebService(TOURISM_URL_API_LOCAL);
 
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override

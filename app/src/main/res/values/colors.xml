@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="white_letter">#ffffff</color>
+    <color name="holo_blue_dark">#00b0ea</color>
     <color name="view_divider_color">#BABABA</color>
     <color name="view_divider_color_2">#DADADA</color>
     <color name="restaurant_background_dark_transparent">#806e8bff</color>

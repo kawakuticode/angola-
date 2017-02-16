@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angolamais.kawakuticode.Utilities.AngolaMaisUtilities;
+import com.angolamais.kawakuticode.Utilities.AMUtilities;
 import com.angolamais.kawakuticode.angola.Listen_Radio_activity;
 import com.angolamais.kawakuticode.angola.R;
 import com.angolamais.kawakuticode.models.RadioModel;
@@ -33,7 +33,7 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.RadioHolder>
 
         this.mContext = context;
         this.radio_list = radio_data;
-        this.imageLoader.init(AngolaMaisUtilities.configuratioImageLoader(context).build());
+        this.imageLoader.init(AMUtilities.configuratioImageLoader(context).build());
 
     }
 

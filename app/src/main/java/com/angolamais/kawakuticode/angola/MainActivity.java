@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.angolamais.kawakuticode.fragments.Gastronomy_Fragment;
+import com.angolamais.kawakuticode.fragments.Metereology_Fragment;
 import com.angolamais.kawakuticode.fragments.Radio_Fragment;
 import com.angolamais.kawakuticode.fragments.Restaurant_Fragment;
 import com.angolamais.kawakuticode.fragments.Tourism_Fragment;
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity
         Tourism_Fragment.OnFragmentInteractionListener,
         Radio_Fragment.OnFragmentInteractionListener,
         Gastronomy_Fragment.OnFragmentInteractionListener,
-        Restaurant_Fragment.OnFragmentInteractionListener
+        Restaurant_Fragment.OnFragmentInteractionListener,
+        Metereology_Fragment.OnFragmentInteractionListener
          {
 
     @Override
@@ -118,8 +120,11 @@ public class MainActivity extends AppCompatActivity
 
             fragmentClass = Tourism_Fragment.class;
 
-        }
+        } else if (id == R.id.nav_metereology) {
 
+            fragmentClass = Metereology_Fragment.class;
+
+        }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
