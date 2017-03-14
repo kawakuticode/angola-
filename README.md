@@ -1,9 +1,9 @@
 # angola-
-repo for angola+ android app
-JAVA Jersey REST WebService hosted on Heroku.com
-PostgreSQL DataBase
-Google Maps API
-zetterstrom Metereology API
+#repo for angola+ android app
+#JAVA Jersey REST WebService hosted on Heroku.com
+#PostgreSQL DataBase
+#Google Maps API
+#zetterstrom Metereology API
 
 #PREVIEWS
 ![preview](https://github.com/kawakuticode/angolaplus/blob/master/previews/menuapp.png)
