@@ -1,8 +1,18 @@
 # angola-
+
 #repo for angola+ android app
+
+
+#Technologies- 
+
+
+
 #JAVA Jersey REST WebService hosted on Heroku.com
+
 #PostgreSQL DataBase
+
 #Google Maps API
+
 #zetterstrom Metereology API
 
 #PREVIEWS
